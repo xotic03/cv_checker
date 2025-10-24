@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-docx
+pdfplumber
+openai
+stripe
+python-dotenv
+markdown
+jinja2

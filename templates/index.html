@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVInsight – KI-Bewerbungs-Check</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div class="nav">
+<a href="/" class="logo"><span>CV</span>Insight</a>
+
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <a href="mailto:hello@cvinsight.app">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Dein Lebenslauf. Nur besser. 💼</h1>
+      <p>Unser KI-Tool analysiert deinen Lebenslauf in Sekunden und zeigt dir, wie du bei Personalern wirklich punktest.</p>
+
+      {% if request.query_params.get('paid') %}
+      <form id="upload-form" action="/analyze" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".pdf,.docx,.txt" required>
+  <button type="submit" class="primary-btn">Lebenslauf analysieren</button>
+</form>
+
+<!-- Loading Screen -->
+<div id="loading-overlay">
+  <div class="loading-box">
+    <h2>Analyse läuft 🧠</h2>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <p>Bitte warte einen Moment – dein Lebenslauf wird analysiert...</p>
+  </div>
+</div>
+      {% else %}
+      <form action="/create_checkout" method="post">
+        <button class="primary-btn">5 € Analyse starten</button>
+      </form>
+      <p class="hint">🔒 Sichere Bezahlung über Stripe – keine Speicherung deiner Daten.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 CVInsight · Made with ❤️ in Germany</p>
+    <p><a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('open');
+    }
+
+    document.getElementById("upload-form").addEventListener("submit", function (e) {
+  const overlay = document.getElementById("loading-overlay");
+  const fill = document.querySelector(".progress-fill");
+  overlay.style.display = "flex";
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 10;
+    if (progress >= 95) progress = 95;
+    fill.style.width = progress + "%";
+  }, 500);
+});
+  </script>
+</body>
+</html>
