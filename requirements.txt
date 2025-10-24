@@ -1,9 +1,13 @@
 fastapi
 uvicorn
-python-docx
-pdfplumber
+jinja2
+markdown
 openai
 stripe
 python-dotenv
-markdown
-jinja2
+python-docx
+pdfplumber
+pdf2image
+pillow
+python-multipart
+aiofiles
